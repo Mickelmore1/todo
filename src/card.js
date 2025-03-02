@@ -12,6 +12,7 @@ export const createCard = (task) => {
         <p>${task.description}</p>
         <p>${task.dueDate}</p>`
     
-    container.appendChild(card);     
+    container.appendChild(card);  
+    console.log(task);  
 }
 

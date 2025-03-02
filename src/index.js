@@ -5,10 +5,11 @@ import { createCard } from "./card.js";
 
 
 
-
-const dialog = document.getElementById('dialog');
-const form = document.getElementById('submit-task');
-
+const createTaskWindow = document.getElementById('dialog-task');
+const submitNewTaskButton = document.getElementById('submit-task');
+const createNewTaskButton = document.getElementById("new-task-button");
+const closeCreateTaskWindow = document.getElementById("close-task");
+const ui = uiController();
 
 
 function createTask(title, description, dueDate, priority) {
@@ -20,17 +21,14 @@ function createTask(title, description, dueDate, priority) {
     }
 }
 
-function createProject(name) {
+function createProject(name, description) {
     return {
         name,
+        description,
         tasks: [],
         addTask(task){
             this.tasks.push(task)
         }, 
-/*         displayTasks(){
-            document.getElementById("task-container").innerHTML = ""; 
-            this.tasks.forEach(task => createCard(task));
-        } */
     }
 }
 
@@ -45,42 +43,26 @@ function uiController() {
 
         submitTask(event) {     
             event.preventDefault(); 
-        
+
             let task = createTask(title.value, description.value, dueDate.value, priority.checked);
+            console.log(task);
             defaultProject.addTask(task)
             ui.displayTasks();
                  
-            dialog.close();
-            form.reset();
-        }
+            createTaskWindow.close();
+        },
     }
 }
 
 
-let ui = uiController();
+createNewTaskButton.addEventListener('click', () => createTaskWindow.showModal());
+submitNewTaskButton.addEventListener('submit', (event) => ui.submitTask(event));
 
-form.addEventListener('submit', (event) => submitTask(event));
-
-
-/* function submitTask(event) {     
-    event.preventDefault(); 
-
-    let task = createTask(title.value, description.value, dueDate.value, priority.checked);
-    defaultProject.addTask(task)
-    ui.displayTasks();
-         
-    dialog.close();
-    form.reset();
-}; */
-
-
-console.log(uiController())
-   
-document.getElementById("new-task").addEventListener('click', () => dialog.showModal());
-document.getElementById('close').addEventListener('click', function() { 
-    dialog.close(); 
-    form.reset();
-    });
+  
+closeCreateTaskWindow.addEventListener('click', function() { 
+    createTaskWindow.close(); 
+    }
+);
 
 
 

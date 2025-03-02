@@ -4,16 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDo</title>
-<!--     <link rel="stylesheet" href="./reset.css">
-    <link rel="stylesheet" href="./style.css"> -->
 </head>
+
 <body>
     <header>
         <div id="search">
             <input type="text" placeholder="Search..." name="search">
             <button type="submit"></button>
         </div>
-        <button type="submit" id="new-task">New Task</button>
+        <button type="submit" id="new-task-button">New Task</button>
         <div id="calendar">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 1H8V3H16V1H18V3H19C20.11 3 21 3.9 21 5V11H19V8H5V19H15V21H5C3.9 21 3 20.11 3 19V5C3 3.9 3.9 3 5 3H6V1M17 21L18.8 22.77C19.3 23.27 20 22.87 20 22.28V18L22.8 14.6C23.3 13.9 22.8 13 22 13H15C14.2 13 13.7 14 14.2 14.6L17 18V21" /></svg>
             <h2>View</h2>
@@ -24,6 +23,7 @@
             <img class="avatar-icon" src="img/avatar.png" alt="profile-picture">
             <h3>Tom</h3>
         </div>
+        <button type="submit" id="new-project">Add Project</button>
         <h1>Projects</h1>
         <div>All</div>
         <div>Project 1</div>
@@ -37,8 +37,36 @@
         <section id="task-container"></section>
     </main>
 
-    <dialog id="dialog">
+    <dialog id="dialog-task">
         <form id="submit-task" method="dialog">
+            <div class="group">
+                <label for="title-task">Title</label>
+                <input class="input" id="title-task" name="title-task" placeholder=".." required>
+            </div>
+            <div class="group">
+                <label for="description-task">Description</label>
+                <input class="input" id="description-task" name="description" placeholder=".." required>
+            </div>
+            <div class="group">
+                <label for="dueDate">Due Date</label>
+                <input type="date" class="input" id="dueDate" name="dueDate" placeholder=".." required>
+            </div>
+            <div>
+                <label for="priority">Priority</label>
+                <input type="checkbox" id="priority" name="priority">
+            </div>
+            <div class="dialog-action-buttons">
+                <button type="button" id="close-task">Close</button>
+                <input  type="submit" id="submit-task" value="Submit">
+            </div>
+        </form>
+    </dialog>
+
+
+
+
+    <dialog id="dialog-project">
+        <form id="submit-project" method="dialog">
             <div class="group">
                 <label for="title">Title</label>
                 <input class="input" id="title" name="title" placeholder=".." required>
@@ -47,22 +75,11 @@
                 <label for="description">Description</label>
                 <input class="input" id="description" name="description" placeholder=".." required>
             </div>
-            <div class="group">
-                <label for="dueDate">Due Date</label>
-                <input class="input" type="date" id="dueDate" name="dueDate" placeholder=".." required>
-            </div>
-            <div>
-                <label for="priority">Priority</label>
-                <input type="checkbox" id="priority" name="priority">
-            </div>
             <div class="dialog-action-buttons">
                 <button type="button" id="close">Close</button>
                 <input id="submit" type="submit" value="Submit">
             </div>
         </form>
     </dialog>
-      
-<!--     <script src="./card.js"></script> -->
-<!--     <script src="./index.js"></script> -->
 </body>
 </html>
