@@ -1,89 +1,89 @@
-import "./reset.css";
-import "./style.css";
+import "./reset.css"
+import "./style.css"
 
-import { createCard, expandToDoCard } from './card.js';
-
-
+import { createCard } from "./card.js";
 
 
 
-let toDoList = [];
-let projectList = [];
 
-class ToDo {
-    constructor(title, description, dueDate, priority, projectID){
-        this.title = title;
-        this.description = description;
-        this.dueDate = dueDate;
-        this.priority = priority;
-        this.projectID = projectID;
+const dialog = document.getElementById('dialog');
+const form = document.getElementById('submit-task');
+
+
+
+function createTask(title, description, dueDate, priority) {
+    return {
+        title,
+        description,
+        dueDate,
+        priority,
     }
 }
 
-class Project {
-    constructor(title, description, id){
-        this.title = title;
-        this.description = description;
-        this.id = id;
+function createProject(name) {
+    return {
+        name,
+        tasks: [],
+        addTask(task){
+            this.tasks.push(task)
+        }, 
+/*         displayTasks(){
+            document.getElementById("task-container").innerHTML = ""; 
+            this.tasks.forEach(task => createCard(task));
+        } */
     }
 }
-    
 
-function addToDo(title, description, dueDate, priority, projectID){
-  toDoList.push(new ToDo(title, description, dueDate, priority, projectID));
+let defaultProject = createProject("Default");
+
+function uiController() {
+    return {        
+        displayTasks(){
+            document.getElementById("task-container").innerHTML = ""; 
+            defaultProject.tasks.forEach(task => createCard(task));
+        },
+
+        submitTask(event) {     
+            event.preventDefault(); 
+        
+            let task = createTask(title.value, description.value, dueDate.value, priority.checked);
+            defaultProject.addTask(task)
+            ui.displayTasks();
+                 
+            dialog.close();
+            form.reset();
+        }
+    }
 }
 
-function addProject(title, description, id){
-    projectList.push(new Project(title, description, id));
-}
+
+let ui = uiController();
+
+form.addEventListener('submit', (event) => submitTask(event));
 
 
-function retrieveProjectList(project) {
-    return toDoList.filter(toDo => toDo.projectID == project.id);
-}
+/* function submitTask(event) {     
+    event.preventDefault(); 
 
-const container = document.getElementById('to-do-container');
+    let task = createTask(title.value, description.value, dueDate.value, priority.checked);
+    defaultProject.addTask(task)
+    ui.displayTasks();
+         
+    dialog.close();
+    form.reset();
+}; */
 
 
-function displayToDo(){
-    toDoList.forEach(toDo => {
-        createCard(toDo);        
+console.log(uiController())
+   
+document.getElementById("new-task").addEventListener('click', () => dialog.showModal());
+document.getElementById('close').addEventListener('click', function() { 
+    dialog.close(); 
+    form.reset();
     });
-}
 
 
 
 
 
-addToDo("Washing Up", "Turn on the dishwasher", "1", "0", "0");
-addToDo("Laundry", "2", "2", "0", "0");
-addToDo("3", "3", "3", "1", "1");
-addToDo("4", "4", "4", "0", "0");
-
-addProject("proj1","proj1","0")
-addProject("proj2","proj2","1")
-addProject("proj3","proj3","2")
-
-displayToDo();
-expandToDoCard();
-
-
-
-////window.addToDo = (title,description,dueDate,priority) => addToDo(title,description,dueDate,priority);
-//window.consoleLog = () => console.log(toDoList);
-
-
-
-
-
-
-
-
-
-
-function test(){
-    console.log("hello")
-}
-
-test();
 

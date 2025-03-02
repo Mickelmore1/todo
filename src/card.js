@@ -1,30 +1,17 @@
-export const createCard = (toDo) => {
-    const container = document.getElementById('to-do-container')
-    const div = document.createElement('div');
-    
-    div.className = "to-do";
-    div.innerHTML = `
+const container = document.getElementById('task-container')
+
+
+export const createCard = (task) => {
+    const card = document.createElement('div');
+    card.className = "task";
+    card.innerHTML = `
         <div>
-            <h1>${toDo.title}</h1>
+            <h1>${task.title}</h1>
             <button class="add">+</button>
         </div>
-        <p>${toDo.description}</p>
-        <p>${toDo.dueDate}</p>`
+        <p>${task.description}</p>
+        <p>${task.dueDate}</p>`
     
-    container.append(div);     
-}
-
-export const expandToDoCard = () => {
-    document.querySelectorAll('.add').forEach(button => {
-        button.addEventListener('click', () => {
-            console.log("yes")
-            button.closest(".to-do").style.backgroundColor = "red";
-
-        
-        })
-    })
-
-
-    
+    container.appendChild(card);     
 }
 

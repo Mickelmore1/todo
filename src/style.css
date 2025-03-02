@@ -65,7 +65,7 @@ main {
     flex-direction: column;
 }
 
-    #to-do-container {
+    #task-container {
         flex: 1;
         display: grid;
         gap: 1.5rem;
@@ -73,12 +73,13 @@ main {
         grid-template-rows: repeat(3, 1fr);  
     }
     
-        .to-do {
+        .task {
             background-color: #8B8B8B;
             display: flex;
+      
         }
 
-        .to-do h1 {
+        .task h1 {
             font-size: 1.5rem;
         }
 
