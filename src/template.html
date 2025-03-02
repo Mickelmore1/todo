@@ -16,8 +16,9 @@
             <img class="avatar-icon" src="img/avatar.png" alt="profile-picture">
             <h3>Tom</h3>
         </div>
-        <button type="submit" id="new-project-button">Add Project</button>
+        <button id="new-project-button">New Project</button>
         <h1>Projects</h1>
+        <ul id="project-container"></ul>
   
     </nav>
     <main>
@@ -29,11 +30,11 @@
         <form id="submit-task" method="dialog">
             <div class="group">
                 <label for="titleTask">Title</label>
-                <input class="input" id="titleTask" name="title" placeholder=".." required>
+                <input class="input" id="titleTask" name="taskTitle" placeholder=".." required>
             </div>
             <div class="group">
                 <label for="descriptionTask">Description</label>
-                <input class="input" id="descriptionTask" name="description" placeholder=".." required>
+                <input class="input" id="descriptionTask" name="taskDescription" placeholder=".." required>
             </div>
             <div class="group">
                 <label for="dueDateTask">Due Date2</label>
@@ -56,16 +57,16 @@
     <dialog id="dialog-project">
         <form id="submit-project" method="dialog">
             <div class="group">
-                <label for="title">Title</label>
-                <input class="input" id="title" name="title" placeholder=".." required>
+                <label for="titleProject">Title</label>
+                <input class="input" id="titleProject" name="projectTitle" placeholder=".." required>
             </div>
             <div class="group">
-                <label for="description">Description</label>
-                <input class="input" id="description" name="description" placeholder=".." required>
+                <label for="descriptionProject">Description</label>
+                <input class="input" id="descriptionProject" name="projectDescription" placeholder=".." required>
             </div>
             <div class="dialog-action-buttons">
-                <button type="button" id="close">Close</button>
-                <input id="submit" type="submit" value="Submit">
+                <button type="button" id="close-project">Close</button>
+                <input type="submit" id="submit-project" value="Submit">
             </div>
         </form>
     </dialog>
