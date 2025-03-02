@@ -6,11 +6,15 @@ import { createCard } from "./card.js";
 
 
 const createTaskWindow = document.getElementById('dialog-task');
-const submitNewTaskButton = document.getElementById('submit-task');
+const closeCreateTaskWindowButton = document.getElementById("close-task");
 const createNewTaskButton = document.getElementById("new-task-button");
-const closeCreateTaskWindow = document.getElementById("close-task");
-const ui = uiController();
+const submitNewTaskButton = document.getElementById('submit-task');
 
+const createNewProjectButton = document.getElementById('new-project-button');
+
+
+const ui = uiController();
+const defaultProject = createProject("Default");
 
 function createTask(title, description, dueDate, priority) {
     return {
@@ -32,7 +36,7 @@ function createProject(name, description) {
     }
 }
 
-let defaultProject = createProject("Default");
+
 
 function uiController() {
     return {        
@@ -44,25 +48,28 @@ function uiController() {
         submitTask(event) {     
             event.preventDefault(); 
 
-            let task = createTask(title.value, description.value, dueDate.value, priority.checked);
-            console.log(task);
+            const task = createTask(titleTask.value, descriptionTask.value, dueDateTask.value, priorityTask.checked);
             defaultProject.addTask(task)
-            ui.displayTasks();
-                 
+
+            ui.displayTasks();   
+            ui.closeTaskWindow();
+        },
+
+        openTaskWindow(){
+            createTaskWindow.showModal();
+        },
+
+        closeTaskWindow(){
             createTaskWindow.close();
+            submitNewTaskButton.reset();
         },
     }
 }
 
 
-createNewTaskButton.addEventListener('click', () => createTaskWindow.showModal());
+createNewTaskButton.addEventListener('click', () => ui.openTaskWindow());
 submitNewTaskButton.addEventListener('submit', (event) => ui.submitTask(event));
-
-  
-closeCreateTaskWindow.addEventListener('click', function() { 
-    createTaskWindow.close(); 
-    }
-);
+closeCreateTaskWindowButton.addEventListener('click', () => ui.closeTaskWindow());
 
 
 
