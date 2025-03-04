@@ -5,8 +5,39 @@ import { createTaskCard, createProjectLink
     } from "./card.js";
 
 
-const projectsList = [];
-window.projectsList = projectsList
+function sessionLoad(){
+    let retrieveData;
+
+    if (JSON.parse(localStorage.test !== undefined)){
+        retrieveData = JSON.parse(localStorage.test)
+        retrieveData.forEach(project => {
+            Object.defineProperty(project, 'addTask', {
+                value: function addTask(task){
+                    this.tasks.push(task);
+                },
+            }) 
+        })
+    } 
+    
+    else { retrieveData = [{
+        "title": "Default",
+        "tasks": [],
+        "projectId": 0,
+        "addTask": function addTask(task){
+            this.tasks.push(task);
+        }
+    }];
+/*         const project = createProject("Default");
+        addProject(project); */
+    
+    }
+    return retrieveData
+}
+
+
+let projectsList = sessionLoad();
+window.projectsList = projectsList;
+
 
 
 function addProject(project){
@@ -65,8 +96,7 @@ function createProject(title) {
 function uiController() {
     return {        
         displayTasks(projectID){
-            console.log(projectID)
-            console.log(projectsList[projectID].tasks)
+
             document.getElementById("task-container").innerHTML = ""; 
             projectsList[projectID].tasks.forEach(task => createTaskCard(task));
         },
@@ -81,8 +111,10 @@ function uiController() {
 
             const task = createTask(titleTask.value, descriptionTask.value, dueDateTask.value, priorityTask.value);
             const project = projectTask.value
+            console.log(task)
+            console.log(project)
             projectsList[project].addTask(task)
-            let storageTask = JSON.stringify(projectsList[project])
+            let storageTask = JSON.stringify(projectsList)
             localStorage.test = storageTask;
 
               
@@ -91,8 +123,6 @@ function uiController() {
 
         submitProject(event){
             event.preventDefault();
-
-            console.log("submitted")
 
             const project = createProject(titleProject.value);
             addProject(project);
@@ -131,7 +161,7 @@ function uiController() {
     }
 }
 
-//let stringifyProjects = JSON.stringify()
+
 
 createNewTaskButton.addEventListener('click', () => ui.openTaskWindow());
 submitNewTaskButton.addEventListener('submit', (event) => ui.submitTask(event));
@@ -142,18 +172,24 @@ submitNewProjectButton.addEventListener('submit', (event) => ui.submitProject(ev
 closeCreateProjectWindowButton.addEventListener('click', () => ui.closeProjectWindow());
 
 
-function startUp(){
-    const project = createProject("Default");
-    addProject(project);
-    ui.displayProjects();    
-}
 
+function startUp(){
+    ui.displayProjects();  }
 startUp();
 
 
-let arrayTest = [];
-console.log(localStorage.test)
 
+/* window.addEventListener("load", () => {
+    projectsList = JSON.parse(localStorage.test)
+ 
+}) */
 
-document.addEventListener("DOMContentLoaded", () => arrayTest = arrayTest.push(JSON.parse(localStorage.test)))
-window.arrayTest2 = arrayTest;
+/* function updateArray(){
+    console.log(projectsList);
+    projectsList = JSON.parse(localStorage.test);
+    console.log(projectsList);
+}
+
+let test = updateArray();
+window.test = test; */
+
