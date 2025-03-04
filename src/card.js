@@ -1,4 +1,6 @@
-const taskContainer = document.getElementById('task-container');
+import { ui } from "./index.js"
+
+let taskContainer = document.getElementById('task-container');
 const projectContainer = document.getElementById('project-container');
 
 export const createTaskCard = (task) => {
@@ -13,16 +15,18 @@ export const createTaskCard = (task) => {
         <p>${task.dueDate}</p>`
     
     taskContainer.appendChild(card);  
-    console.log(task);  
 }
 
 export const createProjectLink = (project) => {
     const link = document.createElement('li');
     link.className = "project";
     link.innerText = project.title;
+    link.value = project.projectId;
 
+    link.addEventListener("click", function(){
+        taskContainer.innerHTML = "";
+        ui.displayTasks(project.projectId);   
+    })
     projectContainer.appendChild(link);
-    console.log(project)
-
-
 }
+

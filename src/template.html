@@ -12,10 +12,6 @@
  
     </header>
     <nav>
-        <div class="profile">
-            <img class="avatar-icon" src="img/avatar.png" alt="profile-picture">
-            <h3>Tom</h3>
-        </div>
         <button id="new-project-button">New Project</button>
         <h1>Projects</h1>
         <ul id="project-container"></ul>
@@ -37,12 +33,22 @@
                 <input class="input" id="descriptionTask" name="taskDescription" placeholder=".." required>
             </div>
             <div class="group">
-                <label for="dueDateTask">Due Date2</label>
+                <label for="dueDateTask">Due Date</label>
                 <input type="date" class="input" id="dueDateTask" name="dueDate" placeholder=".." required>
             </div>
             <div>
                 <label for="priorityTask">Priority</label>
-                <input type="checkbox" id="priorityTask" name="priority">
+                <select id="priorityTask" name="priority">
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+            </div>
+            <div>
+                <label for="projectTask">Project</label>
+                <select id="projectTask" name="project">
+                    
+                </select>
             </div>
             <div class="dialog-action-buttons">
                 <button type="button" id="close-task">Close</button>
@@ -59,10 +65,6 @@
             <div class="group">
                 <label for="titleProject">Title</label>
                 <input class="input" id="titleProject" name="projectTitle" placeholder=".." required>
-            </div>
-            <div class="group">
-                <label for="descriptionProject">Description</label>
-                <input class="input" id="descriptionProject" name="projectDescription" placeholder=".." required>
             </div>
             <div class="dialog-action-buttons">
                 <button type="button" id="close-project">Close</button>

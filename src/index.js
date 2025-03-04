@@ -1,28 +1,39 @@
 import "./reset.css"
 import "./style.css"
 
-import { createTaskCard, createProjectLink } from "./card.js";
+import { createTaskCard, createProjectLink 
+    } from "./card.js";
 
 
+const projectsList = [];
+window.projectsList = projectsList
 
+
+function addProject(project){
+    projectsList.push(project);
+}
+
+
+//Dialogs
 const createTaskWindow = document.getElementById('dialog-task');
-const closeCreateTaskWindowButton = document.getElementById("close-task");
-const createNewTaskButton = document.getElementById("new-task-button");
-const submitNewTaskButton = document.getElementById('submit-task');
-
 const createProjectWindow = document.getElementById('dialog-project');
-const closeCreateProjectWindowButton = document.getElementById("close-project");
+
+const createNewTaskButton = document.getElementById("new-task-button");
+const closeCreateTaskWindowButton = document.getElementById("close-task");
+const submitNewTaskButton = document.getElementById('submit-task');
+const selectProject = document.getElementById('projectTask');
+
 const createNewProjectButton = document.getElementById('new-project-button');
+const closeCreateProjectWindowButton = document.getElementById("close-project");
 const submitNewProjectButton = document.getElementById('submit-project');
 
+export const ui = uiController();
 
 
 
-const ui = uiController();
-const defaultProject = createProject("Default");
-const projects = allProjects();
-window.checkProject = projects;
-window.projectsArray = projects.projectsList;
+
+
+
 
 function createTask(title, description, dueDate, priority) {
     return {
@@ -33,50 +44,48 @@ function createTask(title, description, dueDate, priority) {
     }
 }
 
-function createProject(title, description) {
+
+function createProject(title) {
+
     return {
         title,
-        description,
         tasks: [],
-
+        projectId: projectsList.length,          
         addTask(task){
             this.tasks.push(task);
         }, 
+
     }
 }
 
-function allProjects(){
-    return {
-        projectsList: [],
 
-        addProject(project){
-            console.log(project)
-            console.log("its being pushed!")
-            this.projectsList.push(project);
-            console.log("after= "+this.projectsList)
-        },
-    }
-}
+
+
 
 function uiController() {
     return {        
-        displayTasks(){
+        displayTasks(projectID){
+            console.log(projectID)
+            console.log(projectsList[projectID].tasks)
             document.getElementById("task-container").innerHTML = ""; 
-            defaultProject.tasks.forEach(task => createTaskCard(task));
+            projectsList[projectID].tasks.forEach(task => createTaskCard(task));
         },
 
         displayProjects(){
             document.getElementById("project-container").innerHTML = "";
-            projects.projectsList.forEach(project => createProjectLink(project));            
+            projectsList.forEach(project => createProjectLink(project));            
         },
 
         submitTask(event) {     
             event.preventDefault(); 
 
-            const task = createTask(titleTask.value, descriptionTask.value, dueDateTask.value, priorityTask.checked);
-            defaultProject.addTask(task)
+            const task = createTask(titleTask.value, descriptionTask.value, dueDateTask.value, priorityTask.value);
+            const project = projectTask.value
+            projectsList[project].addTask(task)
+            let storageTask = JSON.stringify(projectsList[project])
+            localStorage.test = storageTask;
 
-            ui.displayTasks();   
+              
             ui.closeTaskWindow();
         },
 
@@ -85,8 +94,8 @@ function uiController() {
 
             console.log("submitted")
 
-            const project = createProject(titleProject.value, descriptionProject.value);
-            projects.addProject(project);
+            const project = createProject(titleProject.value);
+            addProject(project);
 
             ui.displayProjects();
             ui.closeProjectWindow();
@@ -94,6 +103,15 @@ function uiController() {
 
         openTaskWindow(){
             createTaskWindow.showModal();
+            selectProject.innerHTML = "";
+            projectsList.forEach((project => {
+
+                const opt = document.createElement('option')
+                opt.innerText = project.title;
+                opt.value = project.projectId;
+                selectProject.appendChild(opt);
+                }
+           ))
         },
 
         closeTaskWindow(){
@@ -103,6 +121,7 @@ function uiController() {
 
         openProjectWindow(){
             createProjectWindow.showModal();
+
         },
 
         closeProjectWindow(){
@@ -112,6 +131,7 @@ function uiController() {
     }
 }
 
+//let stringifyProjects = JSON.stringify()
 
 createNewTaskButton.addEventListener('click', () => ui.openTaskWindow());
 submitNewTaskButton.addEventListener('submit', (event) => ui.submitTask(event));
@@ -119,10 +139,21 @@ closeCreateTaskWindowButton.addEventListener('click', () => ui.closeTaskWindow()
 
 createNewProjectButton.addEventListener('click', () => ui.openProjectWindow());
 submitNewProjectButton.addEventListener('submit', (event) => ui.submitProject(event));
-closeCreateProjectWindowButton.addEventListener('click', () => ui.closeProjectWindow);
+closeCreateProjectWindowButton.addEventListener('click', () => ui.closeProjectWindow());
 
 
+function startUp(){
+    const project = createProject("Default");
+    addProject(project);
+    ui.displayProjects();    
+}
+
+startUp();
 
 
+let arrayTest = [];
+console.log(localStorage.test)
 
 
+document.addEventListener("DOMContentLoaded", () => arrayTest = arrayTest.push(JSON.parse(localStorage.test)))
+window.arrayTest2 = arrayTest;
