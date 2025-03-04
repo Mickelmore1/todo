@@ -63,6 +63,7 @@ nav {
 main {
     display: flex;
     flex-direction: column;
+    padding: 1rem;  
 }
 
     #task-container {
@@ -70,17 +71,51 @@ main {
         display: grid;
         gap: 1.5rem;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        grid-template-rows: repeat(3, 1fr);  
+        grid-template-rows: repeat(3, 1fr);
+
     }
     
         .task {
-            background-color: #8B8B8B;
+            background-color: #cfcfcf;
             display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding-bottom: 0.5rem;
+            
       
         }
 
-        .task h1 {
+        .task div {
             font-size: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: solid 2px rgb(238, 238, 238);
+            padding-right: 1rem;
+        }
+
+        .task h1 {
+            padding-left: 0px;
+        }
+
+        .task button {
+            height: 32px;
+            width: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+
+        
+        }
+
+        .task p:first-of-type {
+            flex-grow: 1;
+
+        }
+
+        .task * {
+            padding-left: 1rem;
         }
 
 

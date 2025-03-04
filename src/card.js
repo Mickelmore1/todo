@@ -9,7 +9,7 @@ export const createTaskCard = (task) => {
     card.innerHTML = `
         <div>
             <h1>${task.title}</h1>
-            <button class="add">+</button>
+            <button class="add">x</button>
         </div>
         <p>${task.description}</p>
         <p>${task.dueDate}</p>`
